@@ -59,3 +59,4 @@ function usersAll($mysqlClient){
 if(isset($_POST) && !empty($_POST)){
 
   ajoutUser($mysqlClient, $_POST);
+}

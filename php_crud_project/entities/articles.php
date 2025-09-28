@@ -5,14 +5,11 @@ $pdo = getPDO();
 $action = $_GET['action'] ?? '';
 $id = intval($_GET['id'] ?? 0);
 
-// Valeurs par défaut pour le formulaire
 $article = ['titre' => '', 'description' => '', 'date_creation' => '', 'auteur' => ''];
 
-// Traitement du formulaire et des actions
 switch ($action) {
     case 'edit':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $id) {
-            // Mise à jour
             $titre = $_POST['titre'] ?? '';
             $description = $_POST['description'] ?? '';
             $date_creation = $_POST['date_creation'] ?? '';
@@ -25,7 +22,6 @@ switch ($action) {
                 exit;
             }
         } else if ($id) {
-            // Pré-remplissage formulaire
             $stmt = $pdo->prepare("SELECT * FROM articles WHERE id=?");
             $stmt->execute([$id]);
             $article = $stmt->fetch() ?: $article;
@@ -34,7 +30,6 @@ switch ($action) {
 
     case 'add':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Ajout
             $titre = $_POST['titre'] ?? '';
             $description = $_POST['description'] ?? '';
             $date_creation = $_POST['date_creation'] ?? '';
@@ -59,14 +54,11 @@ switch ($action) {
         break;
 
     default:
-        // Aucun traitement particulier
         break;
 }
 
-// Déterminer l'action du formulaire
 $actionAttr = ($action === 'edit' && $id) ? "?page=articles&action=edit&id=$id" : "?page=articles&action=add";
 
-// Formulaire Ajouter / Modifier
 echo '<h2>' . ($action === 'edit' ? 'Modifier' : 'Ajouter') . ' article</h2>';
 echo '<form method="post" action="' . $actionAttr . '">';
 echo 'Titre:<br><input name="titre" value="' . $article['titre'] . '"><br>';
@@ -76,7 +68,6 @@ echo 'Auteur:<br><input name="auteur" value="' . $article['auteur'] . '"><br>';
 echo '<input type="submit" value="' . ($action === 'edit' ? 'Enregistrer' : 'Ajouter') . '">';
 echo '</form>';
 
-// Liste des articles
 $stmt = $pdo->query("SELECT * FROM articles ORDER BY id DESC");
 $rows = $stmt->fetchAll();
 

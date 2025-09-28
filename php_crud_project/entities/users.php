@@ -5,7 +5,6 @@ $pdo = getPDO();
 $action = $_GET['action'] ?? '';
 $id = intval($_GET['id'] ?? 0);
 
-// Valeurs par défaut pour le formulaire
 $user = [
     'prenom' => '',
     'nom' => '',
@@ -15,7 +14,6 @@ $user = [
     'code_postal' => ''
 ];
 
-// Traitement des actions
 switch ($action) {
     case 'edit':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $id) {
@@ -29,12 +27,10 @@ switch ($action) {
             if ($prenom && $nom) {
                 $stmt = $pdo->prepare("UPDATE users SET prenom=?, nom=?, email=?, telephone=?, ville=?, code_postal=? WHERE id=?");
                 $stmt->execute([$prenom, $nom, $email, $telephone, $ville, $code_postal, $id]);
-                // Redirection pour éviter re-submission
                 header('Location: index.php?page=users');
                 exit;
             }
         } else if ($id) {
-            // Pré-remplissage formulaire
             $stmt = $pdo->prepare("SELECT * FROM users WHERE id=?");
             $stmt->execute([$id]);
             $user = $stmt->fetch() ?: $user;
@@ -53,7 +49,6 @@ switch ($action) {
             if ($prenom && $nom) {
                 $stmt = $pdo->prepare("INSERT INTO users (prenom, nom, email, telephone, ville, code_postal) VALUES (?, ?, ?, ?, ?, ?)");
                 $stmt->execute([$prenom, $nom, $email, $telephone, $ville, $code_postal]);
-                // Redirection pour éviter re-submission
                 header('Location: index.php?page=users');
                 exit;
             }
@@ -64,21 +59,17 @@ switch ($action) {
         if ($id) {
             $stmt = $pdo->prepare("DELETE FROM users WHERE id=?");
             $stmt->execute([$id]);
-            // Redirection après suppression
             header('Location: index.php?page=users');
             exit;
         }
         break;
 
     default:
-        // aucune action spécifique
         break;
 }
 
-// Déterminer l'action du formulaire
 $actionAttr = ($action === 'edit' && $id) ? "?page=users&action=edit&id=$id" : "?page=users&action=add";
 
-// Formulaire Ajouter / Modifier
 echo '<h2>' . ($action === 'edit' ? 'Modifier' : 'Ajouter') . ' utilisateur</h2>';
 echo '<form method="post" action="' . $actionAttr . '">';
 echo 'Prénom:<br><input name="prenom" value="' . $user['prenom'] . '"><br>';
@@ -90,7 +81,6 @@ echo 'Code postal:<br><input name="code_postal" value="' . $user['code_postal'] 
 echo '<input type="submit" value="' . ($action === 'edit' ? 'Enregistrer' : 'Ajouter') . '">';
 echo '</form>';
 
-// Liste des utilisateurs
 $stmt = $pdo->query("SELECT * FROM users ORDER BY id DESC");
 $rows = $stmt->fetchAll();
 

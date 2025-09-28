@@ -69,9 +69,9 @@ $actionAttr = ($action === 'edit' && $id) ? "?page=produits&action=edit&id=$id" 
 // Formulaire Ajouter / Modifier
 echo '<h2>' . ($action === 'edit' ? 'Modifier' : 'Ajouter') . ' produit</h2>';
 echo '<form method="post" action="' . $actionAttr . '">';
-echo 'Titre:<br><input name="titre" value="' . htmlspecialchars($produit['titre']) . '"><br>';
-echo 'Description:<br><textarea name="description">' . htmlspecialchars($produit['description']) . '</textarea><br>';
-echo 'Prix:<br><input type="number" step="0.01" name="prix" value="' . htmlspecialchars($produit['prix']) . '" min="0"><br>';
+echo 'Titre:<br><input name="titre" value="' . $produit['titre'] . '"><br>';
+echo 'Description:<br><textarea name="description">' . $produit['description'] . '</textarea><br>';
+echo 'Prix:<br><input type="number" step="0.01" name="prix" value="' . $produit['prix'] . '" min="0"><br>';
 echo '<input type="submit" value="' . ($action === 'edit' ? 'Enregistrer' : 'Ajouter') . '">';
 echo '</form>';
 
@@ -86,9 +86,9 @@ echo '<tr><th>ID</th><th>Titre</th><th>Description</th><th>Prix</th><th>Actions<
 foreach ($rows as $r) {
     echo '<tr>';
     echo '<td>' . $r['id'] . '</td>';
-    echo '<td>' . htmlspecialchars($r['titre']) . '</td>';
-    echo '<td>' . htmlspecialchars($r['description']) . '</td>';
-    echo '<td>' . htmlspecialchars($r['prix']) . '</td>';
+    echo '<td>' . $r['titre'] . '</td>';
+    echo '<td>' . $r['description'] . '</td>';
+    echo '<td>' . $r['prix'] . '</td>';
     echo '<td>
             <a href="?page=produits&action=edit&id=' . $r['id'] . '">Modifier</a> | 
             <a href="?page=produits&action=delete&id=' . $r['id'] . '" onclick="return confirm(\'Supprimer ?\')">Supprimer</a>

@@ -69,10 +69,10 @@ $actionAttr = ($action === 'edit' && $id) ? "?page=articles&action=edit&id=$id" 
 // Formulaire Ajouter / Modifier
 echo '<h2>' . ($action === 'edit' ? 'Modifier' : 'Ajouter') . ' article</h2>';
 echo '<form method="post" action="' . $actionAttr . '">';
-echo 'Titre:<br><input name="titre" value="' . htmlspecialchars($article['titre']) . '"><br>';
-echo 'Description:<br><textarea name="description">' . htmlspecialchars($article['description']) . '</textarea><br>';
-echo 'Date :<br><input type="date" name="date_creation" value="' . htmlspecialchars($article['date_creation']) . '"><br>';
-echo 'Auteur:<br><input name="auteur" value="' . htmlspecialchars($article['auteur']) . '"><br>';
+echo 'Titre:<br><input name="titre" value="' . $article['titre'] . '"><br>';
+echo 'Description:<br><textarea name="description">' . $article['description'] . '</textarea><br>';
+echo 'Date :<br><input type="date" name="date_creation" value="' . $article['date_creation'] . '"><br>';
+echo 'Auteur:<br><input name="auteur" value="' . $article['auteur'] . '"><br>';
 echo '<input type="submit" value="' . ($action === 'edit' ? 'Enregistrer' : 'Ajouter') . '">';
 echo '</form>';
 
@@ -87,10 +87,10 @@ echo '<tr><th>ID</th><th>Titre</th><th>Description</th><th>Date</th><th>Auteur</
 foreach ($rows as $r) {
     echo '<tr>';
     echo '<td>' . $r['id'] . '</td>';
-    echo '<td>' . htmlspecialchars($r['titre']) . '</td>';
-    echo '<td>' . htmlspecialchars($r['description']) . '</td>';
-    echo '<td>' . htmlspecialchars($r['date_creation']) . '</td>';
-    echo '<td>' . htmlspecialchars($r['auteur']) . '</td>';
+    echo '<td>' . $r['titre'] . '</td>';
+    echo '<td>' . $r['description'] . '</td>';
+    echo '<td>' . $r['date_creation'] . '</td>';
+    echo '<td>' . $r['auteur'] . '</td>';
     echo '<td>
             <a href="?page=articles&action=edit&id=' . $r['id'] . '">Modifier</a> | 
             <a href="?page=articles&action=delete&id=' . $r['id'] . '">Supprimer</a>

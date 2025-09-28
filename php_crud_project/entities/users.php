@@ -81,12 +81,12 @@ $actionAttr = ($action === 'edit' && $id) ? "?page=users&action=edit&id=$id" : "
 // Formulaire Ajouter / Modifier
 echo '<h2>' . ($action === 'edit' ? 'Modifier' : 'Ajouter') . ' utilisateur</h2>';
 echo '<form method="post" action="' . $actionAttr . '">';
-echo 'Prénom:<br><input name="prenom" value="' . htmlspecialchars($user['prenom']) . '"><br>';
-echo 'Nom:<br><input name="nom" value="' . htmlspecialchars($user['nom']) . '"><br>';
-echo 'Email:<br><input name="email" value="' . htmlspecialchars($user['email']) . '"><br>';
-echo 'Téléphone:<br><input name="telephone" value="' . htmlspecialchars($user['telephone']) . '"><br>';
-echo 'Ville:<br><input name="ville" value="' . htmlspecialchars($user['ville']) . '"><br>';
-echo 'Code postal:<br><input name="code_postal" value="' . htmlspecialchars($user['code_postal']) . '"><br>';
+echo 'Prénom:<br><input name="prenom" value="' . $user['prenom'] . '"><br>';
+echo 'Nom:<br><input name="nom" value="' . $user['nom'] . '"><br>';
+echo 'Email:<br><input name="email" value="' . $user['email'] . '"><br>';
+echo 'Téléphone:<br><input name="telephone" value="' . $user['telephone'] . '"><br>';
+echo 'Ville:<br><input name="ville" value="' . $user['ville'] . '"><br>';
+echo 'Code postal:<br><input name="code_postal" value="' . $user['code_postal'] . '"><br>';
 echo '<input type="submit" value="' . ($action === 'edit' ? 'Enregistrer' : 'Ajouter') . '">';
 echo '</form>';
 
@@ -101,12 +101,12 @@ echo '<tr><th>ID</th><th>Prénom</th><th>Nom</th><th>Email</th><th>Téléphone</
 foreach ($rows as $r) {
     echo '<tr>';
     echo '<td>' . $r['id'] . '</td>';
-    echo '<td>' . htmlspecialchars($r['prenom']) . '</td>';
-    echo '<td>' . htmlspecialchars($r['nom']) . '</td>';
-    echo '<td>' . htmlspecialchars($r['email']) . '</td>';
-    echo '<td>' . htmlspecialchars($r['telephone']) . '</td>';
-    echo '<td>' . htmlspecialchars($r['ville']) . '</td>';
-    echo '<td>' . htmlspecialchars($r['code_postal']) . '</td>';
+    echo '<td>' . $r['prenom'] . '</td>';
+    echo '<td>' . $r['nom'] . '</td>';
+    echo '<td>' . $r['email'] . '</td>';
+    echo '<td>' . $r['telephone'] . '</td>';
+    echo '<td>' . $r['ville'] . '</td>';
+    echo '<td>' . $r['code_postal'] . '</td>';
     echo '<td>
             <a href="?page=users&action=edit&id=' . $r['id'] . '">Modifier</a> | 
             <a href="?page=users&action=delete&id=' . $r['id'] . '" onclick="return confirm(\'Supprimer ?\')">Supprimer</a>
